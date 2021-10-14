@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.todolistapps.model.DatabaseHandler;
 import com.example.todolistapps.model.ToDoList;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             ToDoListButton[] toDoListButtons = new ToDoListButton[allToDoLists.size()];
-            String[] toDoListItems = new String[allToDoLists.size()];
+
 
             int index = 0;
 
@@ -72,9 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 toDoListButtons[index] = new ToDoListButton(MainActivity.this, toDoList);
                 toDoListButtons[index].setText(toDoList.getToDoListName() + "\n" +
                         toDoList.getToDoListDeadline());
-                toDoListItems[index] = new String();
-                toDoListItems[index] = toDoList.getToDoListName() + "\n" +
-                        toDoList.getToDoListDeadline();
+
 
                 switch (toDoList.getToDoListPriority()){
                     case "Red":
@@ -101,17 +100,13 @@ public class MainActivity extends AppCompatActivity {
                         toDoListButtons[index].setBackgroundColor(Color.GRAY);
                         break;
                 }
-                toDoListButtons[index].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    }
-                });
 
                 GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
                 layoutParams.setMargins(20,20,20,20);
                 gridLayout.addView(toDoListButtons[index], taskButtonWidth,
                         ViewGroup.LayoutParams.WRAP_CONTENT );
                 gridLayout.setLayoutParams(layoutParams);
+                setSingleEvent(gridLayout);
 
 
             }
@@ -120,6 +115,25 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private void setSingleEvent(GridLayout gridLayout) {
+        for (int i = 0; i < gridLayout.getChildCount(); i++) {
+            ToDoListButton toDoListButton = (ToDoListButton) gridLayout.getChildAt(i);
+            final int finalI = i;
+            int finalI1 = i;
+            toDoListButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    editTask(toDoListButton.getToDoListID(),
+                            toDoListButton.getToDoListName(),
+                            toDoListButton.getToDoListDeadline(),
+                            toDoListButton.getToDoListPriority());
+                    Toast.makeText(MainActivity.this, toDoListButton.getToDoListID() + "", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
     }
 
     @Override
@@ -163,9 +177,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void editTask(int id) {
+    private void editTask(int id, String name, String deadline, String priority) {
         Intent intent = new Intent(MainActivity.this, ModifyToDoListActivity.class);
-        intent.putExtra("TO_DO_LIST_ID", id);
+        Bundle extras = new Bundle();
+        extras.putString("TO_DO_LIST_ID", id +"");
+        intent.putExtras(extras);
+        intent.putExtra("TO_DO_LIST_NAME", name);
+        intent.putExtra("TO_DO_LIST_DEADLINE", deadline);
+        intent.putExtra("TO_DO_LIST_PRIORITY", priority);
         startActivity(intent);
     }
 

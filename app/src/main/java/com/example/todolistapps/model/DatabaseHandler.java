@@ -65,7 +65,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void modifyToDoListDatabaseByID(int toDoListID, String toDoListName, double toDoListDeadline, String toDoListPriority){
+    public void modifyToDoListDatabaseByID(int toDoListID, String toDoListName, String toDoListDeadline, String toDoListPriority){
 
         SQLiteDatabase database = getWritableDatabase();
         String modifyToDoListSQLCommand = "update " + TO_DO_LIST_TABLE + " set "

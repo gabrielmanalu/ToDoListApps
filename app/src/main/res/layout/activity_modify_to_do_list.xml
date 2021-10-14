@@ -44,8 +44,7 @@
                         android:id="@+id/editName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:hint="@string/add_text_name" />
+                        android:gravity="left" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,8 +124,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"
-                            android:maxLength="20"
-                            android:hint="@string/add_text_deadline" />
+                            android:maxLength="20" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

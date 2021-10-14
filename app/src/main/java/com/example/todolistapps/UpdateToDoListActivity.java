@@ -84,16 +84,16 @@ public class UpdateToDoListActivity extends AppCompatActivity {
                         EditText editPriority = findViewById(toDoList.getToDoListID() + 30);
 
                         String editedName = editName.getText().toString();
-                        String editedPrice = editDeadline.getText().toString();
-                        String editedColor = editPriority.getText().toString();
+                        String editedDeadline = editDeadline.getText().toString();
+                        String editedPriority = editPriority.getText().toString();
 
-                        try {
-                            Double editedPriceDouble = Double.parseDouble(editedPrice);
-                            mDatabaseHandler.modifyToDoListDatabaseByID(toDoList.getToDoListID(), editedName, editedPriceDouble , editedColor);
-                            Toast.makeText(UpdateToDoListActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-                        }catch (NumberFormatException e ){
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            Double editedDeadlineDouble = Double.parseDouble(editedDeadline);
+                            mDatabaseHandler.modifyToDoListDatabaseByID(toDoList.getToDoListID(), editedName, editedDeadline , editedPriority);
+                            Toast.makeText(UpdateToDoListActivity.this, toDoList.getToDoListID() + "", Toast.LENGTH_SHORT).show();
+//                        }catch (NumberFormatException e ){
+//                            e.printStackTrace();
+//                        }
 
                     }
                 });
