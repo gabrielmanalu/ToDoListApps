@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">ToDoList</string>
-    <string name="add_text_name">Task Name :</string>
-    <string name="add_text_price">Deadline :</string>
-    <string name="add_text_color">Priority :</string>
+    <string name="add_text_name">Task Name</string>
+    <string name="add_text_deadline">Deadline</string>
+    <string name="add_text_priority">Priority</string>
     <string name="add_task_button">Add New Task</string>
     <string name="back_button">BACK</string>
+    <string name="new_task">New Task</string>
 </resources>

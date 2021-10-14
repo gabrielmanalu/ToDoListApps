@@ -3,19 +3,13 @@ package com.example.todolistapps.model;
 
 public class ToDoList {
     private int toDoListID;
-    private double toDoListDeadline;
+    private String toDoListDeadline;
     private String toDoListName;
     private String toDoListPriority;
 
-    public ToDoList(int id, String name, double deadline, String priority){
-        setToDoListPriority(priority);
-        setToDoListID(id);
-        setToDoListName(name);
-        setToDoListDeadline(deadline);
-    }
-
     public ToDoList(){
     }
+
 
     public int getToDoListID() {
         return toDoListID;
@@ -25,11 +19,11 @@ public class ToDoList {
         this.toDoListID = toDoListID;
     }
 
-    public double getToDoListDeadline() {
+    public String getToDoListDeadline() {
         return toDoListDeadline;
     }
 
-    public void setToDoListDeadline(double toDoListDeadline) {
+    public void setToDoListDeadline(String toDoListDeadline) {
         this.toDoListDeadline = toDoListDeadline;
     }
 

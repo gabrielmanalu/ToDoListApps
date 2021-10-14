@@ -15,8 +15,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TO_DO_LIST_TABLE = "ToDoList";
     private static final String ID_KEY = "id";
     private static final String NAME_KEY = "name";
-    private static final String PRIORITY_KEY = "price";
-    private static final String COLOR_KEY = "color";
+    private static final String DEADLINE_KEY = "deadline";
+    private static final String PRIORITY_KEY = "color";
 
 
     public DatabaseHandler(Context context){
@@ -28,8 +28,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String createDatabaseSQL = "create table " + TO_DO_LIST_TABLE +
                 "( " + ID_KEY + " integer primary key autoincrement" +
-                ", " + NAME_KEY + " text" + ", " + PRIORITY_KEY + " real" +
-                ", " + COLOR_KEY + " text" + " )";
+                ", " + NAME_KEY + " text" + ", " + DEADLINE_KEY + " text" +
+                ", " + PRIORITY_KEY + " text" + " )";
         db.execSQL(createDatabaseSQL);
 
     }
@@ -65,14 +65,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void modifyToDoListDatabaseByID(int martialArtID, String martialArtName, double martialArtPrice, String martialArtColor){
+    public void modifyToDoListDatabaseByID(int toDoListID, String toDoListName, double toDoListDeadline, String toDoListPriority){
 
         SQLiteDatabase database = getWritableDatabase();
         String modifyToDoListSQLCommand = "update " + TO_DO_LIST_TABLE + " set "
-                                            + NAME_KEY + " = '" + martialArtName + "', "
-                                            + PRIORITY_KEY + " = '" + martialArtPrice + "',"
-                                            + COLOR_KEY + " = '" + martialArtColor + "' "
-                                            + "where " + ID_KEY + " = " + martialArtID;
+                                            + NAME_KEY + " = '" + toDoListName + "', "
+                                            + DEADLINE_KEY + " = '" + toDoListDeadline + "',"
+                                            + PRIORITY_KEY + " = '" + toDoListPriority + "' "
+                                            + "where " + ID_KEY + " = " + toDoListID;
         database.execSQL(modifyToDoListSQLCommand);
         database.close();
 
@@ -87,9 +87,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<ToDoList> toDoLists = new ArrayList<>();
 
         while (cursor.moveToNext()) {
-            ToDoList currentToDoListObject = new ToDoList(
-                    Integer.parseInt(cursor.getString(0)), cursor.getString(1),
-                    cursor.getDouble(2), cursor.getString(3));
+            ToDoList currentToDoListObject = new ToDoList();
+            currentToDoListObject.setToDoListID(Integer.parseInt(cursor.getString(0)));
+            currentToDoListObject.setToDoListName(cursor.getString(1));
+            currentToDoListObject.setToDoListDeadline(cursor.getString(2));
+            currentToDoListObject.setToDoListPriority(cursor.getString(3));
             toDoLists.add(currentToDoListObject);
         }
 
@@ -107,9 +109,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ToDoList toDoListObject = null;
 
         if(cursor.moveToFirst()){
-            toDoListObject = new ToDoList(
-                    Integer.parseInt(cursor.getString(0)), cursor.getString(1),
-                    cursor.getDouble(2), cursor.getString(3));
+            toDoListObject = new ToDoList();
+            toDoListObject.setToDoListID(Integer.parseInt(cursor.getString(0)));
+            toDoListObject.setToDoListName(cursor.getString(1));
+            toDoListObject.setToDoListDeadline(cursor.getString(2));
+            toDoListObject.setToDoListPriority(cursor.getString(3));
+
 
         }
         database.close();

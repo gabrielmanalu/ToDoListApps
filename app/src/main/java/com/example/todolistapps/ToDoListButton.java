@@ -16,7 +16,7 @@ public class ToDoListButton extends AppCompatButton {
     }
 
 
-    public double getToDoListDeadline() {
+    public String getToDoListDeadline() {
         return mToDoList.getToDoListDeadline();
     }
 
