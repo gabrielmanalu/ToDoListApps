@@ -6,4 +6,8 @@
     <string name="add_task_button">Add New Task</string>
     <string name="back_button">BACK</string>
     <string name="new_task">New Task</string>
+    <string name="low">LOW</string>
+    <string name="normal">NORMAL</string>
+    <string name="high">HIGH</string>
+    <string name="priority">Priority</string>
 </resources>

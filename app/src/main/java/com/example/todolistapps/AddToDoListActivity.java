@@ -3,12 +3,15 @@ package com.example.todolistapps;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,16 +39,21 @@ public class AddToDoListActivity extends AppCompatActivity {
 
     @BindView(R.id.editName)
     TextInputEditText editName;
-    @BindView(R.id.editPriority)
-    TextInputEditText editPriority;
-    //    @BindView(R.id.editDeadline)
-//    TextInputEditText editDeadline;
     @BindView(R.id.addTaskButton)
     Button addTaskButton;
     @BindView(R.id.backButton)
     Button backButton;
+    @BindView(R.id.radio_group)
+    RadioGroup priorityGroup;
+    @BindView(R.id.radio_low)
+    RadioButton radio_low;
+    @BindView(R.id.radio_normal)
+    RadioButton radio_normal;
+    @BindView(R.id.radio_high)
+    RadioButton radio_high;
 
     EditText editDeadline;
+    String priority;
     DatabaseHandler databaseHandler;
     boolean isSelectDeadline;
     SingleDateAndTimePickerDialog.Builder singleBuilder;
@@ -54,6 +62,7 @@ public class AddToDoListActivity extends AppCompatActivity {
     @OnClick(R.id.addTaskButton)
     void addTask() {
         setTask();
+        Log.w("PRIORITY", priority);
     }
 
     @OnClick(R.id.backButton)
@@ -82,7 +91,7 @@ public class AddToDoListActivity extends AppCompatActivity {
         toDoList.setToDoListID(0);
         toDoList.setToDoListName(editName.getText().toString());
         toDoList.setToDoListDeadline(editDeadline.getText().toString());
-        toDoList.setToDoListPriority(editPriority.getText().toString());
+        toDoList.setToDoListPriority(priority);
         databaseHandler.addToDoList(toDoList);
         Toast.makeText(this, toDoList.getToDoListName() + " is added!", Toast.LENGTH_SHORT).show();
 
@@ -92,13 +101,16 @@ public class AddToDoListActivity extends AppCompatActivity {
     private void init() {
         databaseHandler = new DatabaseHandler(AddToDoListActivity.this);
         editDeadline.setShowSoftInputOnFocus(false);
+
         editDeadline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 deadlineBuilder();
             }
         });
+
     }
+
 
     public void deadlineBuilder() {
         {
@@ -116,6 +128,7 @@ public class AddToDoListActivity extends AppCompatActivity {
 
             new SingleDateAndTimePickerDialog.Builder(this)
                     .setTimeZone(TimeZone.getDefault())
+                    .mainColor(Color.rgb(101,73,156))
                     .curved()
                     .mustBeOnFuture()
                     .defaultDate(defaultDate)
@@ -134,4 +147,29 @@ public class AddToDoListActivity extends AppCompatActivity {
                     }).display();
         }
     }
+
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+        String str="";
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_low:
+                if(checked)
+                    str = "Low Priority";
+                    priority = "LOW";
+                break;
+            case R.id.radio_normal:
+                if(checked)
+                    str = "Normal Priority";
+                    priority = "NORMAL";
+                break;
+            case R.id.radio_high:
+                if(checked)
+                    str = "High Priority";
+                    priority = "HIGH";
+                break;
+        }
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    }
+
 }
