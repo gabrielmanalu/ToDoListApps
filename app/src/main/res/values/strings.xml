@@ -10,4 +10,8 @@
     <string name="normal">NORMAL</string>
     <string name="high">HIGH</string>
     <string name="priority">Priority</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="edit_task_button">Edit New Task</string>
 </resources>

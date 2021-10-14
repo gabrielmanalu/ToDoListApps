@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.todolistapps">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,16 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToDoListApps">
         <activity
-            android:name="com.example.todolistapps.UpdateToDoListActivity"
+            android:name=".ModifyToDoListActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.todolistapps.DeleteToDoListActivity"
+            android:name=".UpdateToDoListActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.todolistapps.AddToDoListActivity"
+            android:name=".DeleteToDoListActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.todolistapps.MainActivity"
+            android:name=".AddToDoListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.example.todolistapps.model.DatabaseHandler;
 import com.example.todolistapps.model.ToDoList;
@@ -35,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
         mDatabaseHandler = new DatabaseHandler(MainActivity.this);
         Point screenSize = new Point();
-        scrollView =findViewById(R.id.itemScrollView);
+        scrollView = findViewById(R.id.itemScrollView);
+
         getWindowManager().getDefaultDisplay().getSize(screenSize);
         taskButtonWidth = screenSize.x / 2;
         modifyUserInterface();
+
 
     }
 
@@ -53,16 +57,24 @@ public class MainActivity extends AppCompatActivity {
             GridLayout gridLayout = new GridLayout(MainActivity.this);
             gridLayout.setRowCount((allToDoLists.size() + 1) / 2);
             gridLayout.setColumnCount(2);
+            gridLayout.setElevation(20);
+            gridLayout.setUseDefaultMargins(true);
+            gridLayout.setPadding(5, 5, 5, 5);
+
+
 
             ToDoListButton[] toDoListButtons = new ToDoListButton[allToDoLists.size()];
+            String[] toDoListItems = new String[allToDoLists.size()];
 
             int index = 0;
 
             for (ToDoList toDoList : allToDoLists){
                 toDoListButtons[index] = new ToDoListButton(MainActivity.this, toDoList);
-                toDoListButtons[index].setText(toDoList.getToDoListID() + "\n" +
-                        toDoList.getToDoListName() + "\n" +
+                toDoListButtons[index].setText(toDoList.getToDoListName() + "\n" +
                         toDoList.getToDoListDeadline());
+                toDoListItems[index] = new String();
+                toDoListItems[index] = toDoList.getToDoListName() + "\n" +
+                        toDoList.getToDoListDeadline();
 
                 switch (toDoList.getToDoListPriority()){
                     case "Red":
@@ -92,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
                 toDoListButtons[index].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                     }
                 });
 
@@ -106,7 +117,9 @@ public class MainActivity extends AppCompatActivity {
             }
             scrollView.addView(gridLayout);
 
+
         }
+
     }
 
     @Override
@@ -147,6 +160,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateTask() {
         Intent intent = new Intent(MainActivity.this, UpdateToDoListActivity.class);
+        startActivity(intent);
+    }
+
+    private void editTask(int id) {
+        Intent intent = new Intent(MainActivity.this, ModifyToDoListActivity.class);
+        intent.putExtra("TO_DO_LIST_ID", id);
         startActivity(intent);
     }
 

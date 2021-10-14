@@ -42,10 +42,10 @@ public class UpdateToDoListActivity extends AppCompatActivity {
             ScrollView scrollView = new ScrollView(UpdateToDoListActivity.this);
             GridLayout gridLayout = new GridLayout(UpdateToDoListActivity.this);
             gridLayout.setRowCount(toDoLists.size());
-            gridLayout.setColumnCount(5);
+            gridLayout.setColumnCount(4);
 
             TextView[] idTextView = new TextView[toDoLists.size()];
-            EditText[][] editNamePriceColor = new EditText[toDoLists.size()][3];
+            EditText[][] editNameDeadlinePriority = new EditText[toDoLists.size()][3];
             Button[] modifyButton = new Button[toDoLists.size()];
 
             Point screenSize = new Point();
@@ -59,18 +59,18 @@ public class UpdateToDoListActivity extends AppCompatActivity {
                 idTextView[index].setGravity(Gravity.CENTER);
                 idTextView[index].setText(toDoList.getToDoListID() + "");
 
-                editNamePriceColor[index][0] = new EditText(UpdateToDoListActivity.this);
-                editNamePriceColor[index][1] = new EditText(UpdateToDoListActivity.this);
-                editNamePriceColor[index][2] = new EditText(UpdateToDoListActivity.this);
+                editNameDeadlinePriority[index][0] = new EditText(UpdateToDoListActivity.this);
+                editNameDeadlinePriority[index][1] = new EditText(UpdateToDoListActivity.this);
+                editNameDeadlinePriority[index][2] = new EditText(UpdateToDoListActivity.this);
 
-                editNamePriceColor[index][0].setText(toDoList.getToDoListName());
-                editNamePriceColor[index][1].setText(toDoList.getToDoListDeadline() + "");
-                editNamePriceColor[index][1].setInputType(InputType.TYPE_CLASS_NUMBER);
-                editNamePriceColor[index][2].setText(toDoList.getToDoListPriority());
+                editNameDeadlinePriority[index][0].setText(toDoList.getToDoListName());
+                editNameDeadlinePriority[index][1].setText(toDoList.getToDoListDeadline() + "");
+                editNameDeadlinePriority[index][1].setInputType(InputType.TYPE_CLASS_NUMBER);
+                editNameDeadlinePriority[index][2].setText(toDoList.getToDoListPriority());
 
-                editNamePriceColor[index][0].setId(toDoList.getToDoListID() + 10);
-                editNamePriceColor[index][1].setId(toDoList.getToDoListID() + 20);
-                editNamePriceColor[index][2].setId(toDoList.getToDoListID() + 30);
+                editNameDeadlinePriority[index][0].setId(toDoList.getToDoListID() + 10);
+                editNameDeadlinePriority[index][1].setId(toDoList.getToDoListID() + 20);
+                editNameDeadlinePriority[index][2].setId(toDoList.getToDoListID() + 30);
 
                 modifyButton[index] = new Button(UpdateToDoListActivity.this);
                 modifyButton[index].setText("Modify");
@@ -80,12 +80,12 @@ public class UpdateToDoListActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         EditText editName = findViewById(toDoList.getToDoListID() + 10);
-                        EditText editPrice = findViewById(toDoList.getToDoListID() + 20);
-                        EditText editColor = findViewById(toDoList.getToDoListID() + 30);
+                        EditText editDeadline = findViewById(toDoList.getToDoListID() + 20);
+                        EditText editPriority = findViewById(toDoList.getToDoListID() + 30);
 
                         String editedName = editName.getText().toString();
-                        String editedPrice = editPrice.getText().toString();
-                        String editedColor = editColor.getText().toString();
+                        String editedPrice = editDeadline.getText().toString();
+                        String editedColor = editPriority.getText().toString();
 
                         try {
                             Double editedPriceDouble = Double.parseDouble(editedPrice);
@@ -98,10 +98,10 @@ public class UpdateToDoListActivity extends AppCompatActivity {
                     }
                 });
 
-                gridLayout.addView(idTextView[index], (int)(screenWidth / 12.5), ViewGroup.LayoutParams.WRAP_CONTENT);
-                gridLayout.addView(editNamePriceColor[index][0], (int) (screenWidth*0.30), ViewGroup.LayoutParams.WRAP_CONTENT);
-                gridLayout.addView(editNamePriceColor[index][1], (int) (screenWidth*0.17), ViewGroup.LayoutParams.WRAP_CONTENT);
-                gridLayout.addView(editNamePriceColor[index][2], (int) (screenWidth*0.15), ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                gridLayout.addView(editNameDeadlinePriority[index][0], (int) (screenWidth*0.30), ViewGroup.LayoutParams.WRAP_CONTENT);
+                gridLayout.addView(editNameDeadlinePriority[index][1], (int) (screenWidth*0.25), ViewGroup.LayoutParams.WRAP_CONTENT);
+                gridLayout.addView(editNameDeadlinePriority[index][2], (int) (screenWidth*0.15), ViewGroup.LayoutParams.WRAP_CONTENT);
                 gridLayout.addView(modifyButton[index], (int)(screenWidth*0.30), ViewGroup.LayoutParams.WRAP_CONTENT );
 
                 index++;
