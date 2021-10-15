@@ -13,6 +13,7 @@ Simple app to Add, Edit, and Delete ToDoList Tasks. Data is saved using SQLite.
 
 ## Depedencies
 implementation 'com.jakewharton:butterknife:10.2.3'
+
 annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
 implementation 'com.github.florent37:singledateandtimepicker:2.2.7'
