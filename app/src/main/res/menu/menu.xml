@@ -9,8 +9,4 @@
         android:id="@+id/delete_task"
         android:title="Delete Task"
         app:showAsAction="collapseActionView"/>
-    <item
-        android:id="@+id/update_task"
-        android:title="Update"
-        app:showAsAction="collapseActionView"/>
 </menu>

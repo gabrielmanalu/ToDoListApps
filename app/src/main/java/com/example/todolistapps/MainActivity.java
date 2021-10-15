@@ -137,9 +137,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.delete_task:
                 deleteTask();
                 return true;
-            case R.id.update_task:
-                updateTask();
-                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -154,11 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteTask() {
         Intent intent = new Intent(MainActivity.this, DeleteToDoListActivity.class);
-        startActivity(intent);
-    }
-
-    private void updateTask() {
-        Intent intent = new Intent(MainActivity.this, UpdateToDoListActivity.class);
         startActivity(intent);
     }
 

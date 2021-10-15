@@ -15,9 +15,6 @@
             android:name=".ModifyToDoListActivity"
             android:exported="true" />
         <activity
-            android:name=".UpdateToDoListActivity"
-            android:exported="true" />
-        <activity
             android:name=".DeleteToDoListActivity"
             android:exported="true" />
         <activity
