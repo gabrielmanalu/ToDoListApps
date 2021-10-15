@@ -48,7 +48,7 @@ public class ModifyToDoListActivity extends AppCompatActivity {
     EditText editDeadline;
     String editedPriority;
     DatabaseHandler databaseHandler;
-    ToDoList editToDoList;
+    int edit = 0;
     SingleDateAndTimePickerDialog.Builder singleBuilder;
     SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault());
 
@@ -58,13 +58,18 @@ public class ModifyToDoListActivity extends AppCompatActivity {
         finish();
     }
 
+    @OnClick(R.id.editTaskButton)
+    void editTask(){
+        edit();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_to_do_list);
         editDeadline = findViewById(R.id.editDeadline);
 
-        databaseHandler = new DatabaseHandler(ModifyToDoListActivity.this);
 
         Bundle extras = getIntent().getExtras();
 
@@ -74,19 +79,22 @@ public class ModifyToDoListActivity extends AppCompatActivity {
         String deadline = getIntent().getStringExtra("TO_DO_LIST_DEADLINE");
         String priority = getIntent().getStringExtra("TO_DO_LIST_PRIORITY");
 
+        String priorityLevel[] = {"LOW", "NORMAL", "HIGH"};
+
         ButterKnife.bind(this);
 
         editName.setHint(name);
         editDeadline.setHint(deadline);
-       if(priority == "LOW") {
+
+
+       if(priority.equals(priorityLevel[0])) {
             radio_low.setChecked(true);
        }
-       if(priority == "NORMAL") {
+       else if(priority.equals(priorityLevel[1])) {
             radio_normal.setChecked(true);
-       }if (priority == "HIGH") {
+       }else if (priority.equals(priorityLevel[2])) {
             radio_high.setChecked(true);
-        }
-
+       }
 
 
         editDeadline.setShowSoftInputOnFocus(false);
@@ -97,23 +105,30 @@ public class ModifyToDoListActivity extends AppCompatActivity {
             }
         });
 
-        String editedName = editName.getText().toString();
-        String editedDeadline = editDeadline.getText().toString();
-        String setPriority = editedPriority;
+        edit = id;
 
-        editTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(editedName != null || editedDeadline != null || setPriority != null) {
-                    databaseHandler.modifyToDoListDatabaseByID(id, editedName, editedDeadline, setPriority);
-                    Toast.makeText(ModifyToDoListActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(ModifyToDoListActivity.this, "Please insert new data", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-        });
+
     }
+
+    private void edit() {
+        databaseHandler = new DatabaseHandler(ModifyToDoListActivity.this);
+        ToDoList toDoList = new ToDoList();
+        toDoList.setToDoListName(editName.getText().toString());
+        toDoList.setToDoListDeadline(editDeadline.getText().toString());
+        toDoList.setToDoListPriority(editedPriority);
+        if(toDoList.getToDoListName() != null || toDoList.getToDoListDeadline() != null || toDoList.getToDoListPriority() != null) {
+            databaseHandler.modifyToDoListDatabaseByID(edit, toDoList.getToDoListName(),
+                    toDoList.getToDoListDeadline(),
+                    toDoList.getToDoListPriority());
+//                    Toast.makeText(ModifyToDoListActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ModifyToDoListActivity.this, "TASK EDITED", Toast.LENGTH_SHORT).show();
+
+        }else {
+            Toast.makeText(ModifyToDoListActivity.this, "Please insert new data", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
 
     public void deadlineBuilder() {
         {

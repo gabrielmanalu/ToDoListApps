@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
             gridLayout.setRowCount((allToDoLists.size() + 1) / 2);
             gridLayout.setColumnCount(2);
             gridLayout.setElevation(20);
+            gridLayout.setAlignmentMode(GridLayout.ALIGN_MARGINS);
             gridLayout.setUseDefaultMargins(true);
-            gridLayout.setPadding(5, 5, 5, 5);
 
 
 
@@ -76,28 +76,14 @@ public class MainActivity extends AppCompatActivity {
 
 
                 switch (toDoList.getToDoListPriority()){
-                    case "Red":
-                        toDoListButtons[index].setBackgroundColor(Color.RED);
+                    case "HIGH":
+                        toDoListButtons[index].setBackgroundColor(Color.rgb(255,255,0));
                         break;
-                    case "Blue":
-                        toDoListButtons[index].setBackgroundColor(Color.BLUE);
+                    case "NORMAL":
+                        toDoListButtons[index].setBackgroundColor(Color.rgb(174,234,00));
                         break;
-                    case "Green":
-                        toDoListButtons[index].setBackgroundColor(Color.GREEN);
-                        break;
-                    case "Black":
-                        toDoListButtons[index].setBackgroundColor(Color.BLACK);
-                        break;
-                    case "Yellow":
-                        toDoListButtons[index].setBackgroundColor(Color.YELLOW);
-                        break;
-                    case "Purple":
-                        toDoListButtons[index].setBackgroundColor(Color.CYAN);
-                        break;
-                    case "White":
-                        toDoListButtons[index].setBackgroundColor(Color.WHITE);
-                    default:
-                        toDoListButtons[index].setBackgroundColor(Color.GRAY);
+                    case "LOW":
+                        toDoListButtons[index].setBackgroundColor(Color.rgb(0,176,255));
                         break;
                 }
 
@@ -129,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
                             toDoListButton.getToDoListName(),
                             toDoListButton.getToDoListDeadline(),
                             toDoListButton.getToDoListPriority());
-                    Toast.makeText(MainActivity.this, toDoListButton.getToDoListID() + "", Toast.LENGTH_SHORT).show();
 
                 }
             });
